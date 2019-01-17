@@ -1,0 +1,29 @@
+from email import *
+from time import *
+
+def onEmailReceive(sender, subject, body):
+	print("Received from: " + sender)
+	print("Subject: " + subject)
+	print("Body: " + body)
+
+def onEmailSend(status):
+	print("send status: " + str(status))
+
+def main():
+	EmailClient.setup(
+		"username@email.com",
+		"email.com",
+		"username",
+		
+	)
+	
+	EmailClient.onReceive(onEmailReceive)
+	EmailClient.onSend(onEmailSend)
+	
+	EmailClient.send("user@email.com","emergency", "The panic button is pushed , need assistance !")
+
+	# check email once a while
+	while True:
+		EmailClient.receive()
+		delay(5000)
+
